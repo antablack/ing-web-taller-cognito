@@ -27,25 +27,20 @@ class Reparaciones extends BaseController
 	}
 
 
-public function listapdf(){
+public function listapdf($id){
 
-    $db      = \Config\Database::connect();
-    //vehiculos
-    $builder = $db->table('vehiculos');
-    $query = $builder->getWhere(['id' => '72']);
-    //reparacion
-    $builder = $db->table('reparaciones');
-    $query = $builder->getWhere(['id' => '72']);
-    $builder = $db->table('clientes');
-    $query = $builder->getWhere(['id' => '72']);
+
     $pdf= new PdfReparaciones();
     $pdf->SetMargins(PDF_MARGIN_LEFT, 30, PDF_MARGIN_RIGHT);
     $pdf->Addpage();
-    // $regvehiculos = $this->model->getData();
-    foreach($query->getResult() as $row){
+    $consulta2 = $this->model->getData($id);
+    $consulta = $this->model->getDetalle($consulta2["r.id"]);
+    foreach($consulta2 as $row){
     $html='
     <div style="text-align: center">
-<h4>Reparacion No <span style="font-style: italic">'.$row.'</span></h4>
+<h4>Reparacion No <span style="font-style: italic">'.$row["r.id"].'</span></h4>
+';
+    $html.='
 <h4>Cliente <span style="font-style: italic">Manuel</span></h4>
 <h4>Conductor <span style="font-style: italic">nombre</span></h4>
 <h4>Direccion del cliente No <span style="font-style: italic">direccion</span></h4>
@@ -58,20 +53,23 @@ public function listapdf(){
         <thead>
             <tr style="background-color:#C8C6C6;color:#000000;">
                 <th>ID</th>
-                <th>OBSERVACION</th>
-                <th>VALOR</th>
-                <th>FECHA</th>
+                <th>DESCRIPCION</th>
+                <th>PRECIO</th>
+                <th>CANTIDAD</th>
+                <th>SUBTOTAL</th>
             </tr>
         </thead>
     <tbody>
     ';
-    foreach($query->getResult() as $row){
+    
+    foreach($consulta as $row2){
         $html .='
         <tr>
-            <td>' .$row->id.'</td>
-            <td>' .$row->observacion.'</td>
-            <td>' .$row->valor.'</td>
-            <td>' .$row->fecha.'</td>
+            <td>' .$row2['id'].'</td>
+            <td> algo </td>
+            <td>' .$row2['valor'].'</td>
+            <td>' .$row2['cantidad'].'</td>
+            <td>' .$row2['valor'] * $row2['cantidad'].'</td>
 
         </tr>';
     }
