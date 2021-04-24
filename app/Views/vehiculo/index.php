@@ -29,6 +29,7 @@ if (isset($titulo)) {
     <center><button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#modalForm">
     <i class="fa fa-car"></i> Nuevo vehiculo</button></center>
 <br>
+
 <table class="table table-hover">
     <thead class="thead-dark">
         <tr>
