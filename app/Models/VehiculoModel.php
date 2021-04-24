@@ -14,7 +14,7 @@ class vehiculoModel extends Model{
     }
 
     public function getVehiculosxCliente($id) {
-    return $this->db->table("vehiculos as v")
+        return $this->db->table("vehiculos as v")
             ->select("v.id, v.placa, v.modelo, v.marca, v.capacidad, v.clientes_id, CONCAT(ci.nombres, ' ', ci.apellidos) AS nombres_clientes, v.conductores_id, CONCAT(c.nombres, ' ', c.apellidos) AS nombres_conductor, v.created, v.modified")
             ->join('conductores AS c', 'v.conductores_id = c.id')
             ->join('clientes AS ci', 'v.clientes_id = ci.id')

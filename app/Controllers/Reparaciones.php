@@ -13,7 +13,7 @@ class Reparaciones extends BaseController
 
     public function __construct()
     {
-        $this->modelReparacione = new ReparacionModel();//creo objeto modelo
+        $this->modelReparacion = new ReparacionModel();//creo objeto modelo
         $this ->modelCliente = new ClienteModel();
         $this ->modelVehiculo = new VehiculoModel();
     }
