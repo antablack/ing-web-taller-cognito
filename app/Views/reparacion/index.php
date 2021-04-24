@@ -33,29 +33,25 @@ $clientes = isset($clientes) ? $clientes : [];
     <?php echo $tit; ?>
 </h1>
 
-<center>
-    <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#modalForm">
-        <i class="fa fa-car"></i> Nuevo vehiculo
-    </button>
-</center>
 <br>
 
-<form method="GET">
-    <label for="cliente" class="form-label">Cliente</label>
-
-    <select class="form-control" id="cliente" name="cliente">
-        <option <?php echo $clienteId == "" ? "selected" : "" ?> value=""></option>
-
-        <?php 
-            
-            foreach ($clientes as $cliente) {
-                echo "<option value=".$cliente['id']." ". ($cliente['id']== $clienteId ? "selected" : "") ." >".$cliente['nombres']." ".$cliente['apellidos']."</option>";
-            }
-        ?>
-    </select>
-    <input class="btn btn-primary mt-2" type="submit" value="Filtrar"/>
-</form>
-<br/>
+<div class="row">
+    <div class="col-md-3">
+        <form method="GET">
+            <label for="cliente" class="form-label">Cliente</label>
+            <select class="form-control form-select" id="cliente" name="cliente">
+                <option <?php echo $clienteId=="" ? "selected" : "" ?> value=""></option>
+                <?php 
+                    foreach ($clientes as $cliente) {
+                        echo "<option value=".$cliente['id']." ". ($cliente['id']== $clienteId ? "selected" : "") ." >".$cliente['nombres']." ".$cliente['apellidos']."</option>";
+                    }
+                ?>
+            </select>
+            <input class="btn btn-primary mt-2" type="submit" value="Filtrar" />
+        </form>
+    </div>
+</div>
+<br />
 <table class="table table-hover">
     <thead class="thead-dark">
         <tr>
@@ -72,10 +68,18 @@ $clientes = isset($clientes) ? $clientes : [];
         ?>
 
         <tr>
-            <td><a href="<?php echo site_url('reparaciones/listapdf/' . $row['id']); ?>"> <?php echo $row['placa']; ?> </a></td>
-            <td><?php echo $row['modelo']; ?></td>
-            <td><?php echo $row['marca']; ?></td>
-            <td><?php echo $row['nombres_conductor']; ?></td>
+            <td><a href="<?php echo site_url('reparaciones/listapdf/' . $row['id']); ?>">
+                    <?php echo $row['placa']; ?>
+                </a></td>
+            <td>
+                <?php echo $row['modelo']; ?>
+            </td>
+            <td>
+                <?php echo $row['marca']; ?>
+            </td>
+            <td>
+                <?php echo $row['nombres_conductor']; ?>
+            </td>
         </tr>
         <?php
         }

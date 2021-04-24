@@ -37,9 +37,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
                                     <a class="dropdown-item"
-                                        href="<?php echo site_url('vehiculos/index') ?>">Vehiculos</a></li>
-                                <li>
-                                    <a class="dropdown-item" href="<?php echo site_url('vehiculos/listapdf') ?>" target="_blank" >Vehiculos PDF</a></li>
+                                        href="<?php echo site_url('reparaciones/index') ?>">Reparaciones</a></li>
                                 <li>
                                 <li>
                                     <a class="dropdown-item"
