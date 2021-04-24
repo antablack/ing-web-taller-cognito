@@ -12,7 +12,7 @@ class Reparaciones extends BaseController
 
     public function __construct()
     {
-        $this->modelReparacione = new ReparacionModel();//creo objeto modelo
+        $this->modelReparacion = new ReparacionModel();//creo objeto modelo
         $this ->modelCliente = new ClienteModel();
         $this ->modelVehiculo = new VehiculoModel();
     }
@@ -20,7 +20,7 @@ class Reparaciones extends BaseController
 	{
         $data['clientes'] = $this->modelCliente->getData();
         $data['clienteId'] = isset($_GET['cliente']) ? $_GET['cliente'] : '';
-        $data['vehiculos'] = !empty($data['clienteId']) ? $this->modelVehiculo->getVehiculosxCliente() : [];
+        $data['vehiculos'] = !empty($data['clienteId']) ? $this->modelVehiculo->getVehiculosxCliente($data['clienteId']) : [];
         $data['titulo'] = '<center>Listado de Vehículos</center>';
         $data['contenido'] = 'reparacion/index';
 		return view('welcome_message', $data);
