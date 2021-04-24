@@ -38,10 +38,10 @@ public function listapdf($id){
     foreach($consulta2 as $row){
     $html='
     <div style="text-align: center">
-<h4>Reparacion No <span style="font-style: italic">'.$row["r.id"].'</span></h4>
+<h4>Reparacion No <span style="font-style: italic">'.$row["reparaciones_id"].'</span></h4>
 ';
     $html.='
-<h4>Cliente <span style="font-style: italic">Manuel</span></h4>
+<h4>Cliente <span style="font-style: italic">'.$row["nombre_cliente"].'</span></h4>
 <h4>Conductor <span style="font-style: italic">nombre</span></h4>
 <h4>Direccion del cliente No <span style="font-style: italic">direccion</span></h4>
 <h4>Telefono: <span style="font-style: italic">telefono</span></h4>
