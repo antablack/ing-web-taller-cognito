@@ -25,7 +25,6 @@ if (isset($titulo)) {
 }
 
 $clientes = isset($clientes) ? $clientes : [];
-$clienteId = isset($_GET['cliente']) ? $_GET['cliente'] : '';
 
 ?>
 
@@ -56,3 +55,39 @@ $clienteId = isset($_GET['cliente']) ? $_GET['cliente'] : '';
     </select>
     <input class="btn btn-primary mt-2" type="submit" value="Filtrar"/>
 </form>
+<br/>
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>PLACA</th>
+            <th>MODELO</th>
+            <th>MARCA</th>
+            <th>CONDUCTOR</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <?php 
+        foreach($vehiculos as $row){
+        ?>
+
+        <tr>
+            <td><a href="<?php echo site_url('reparaciones/listapdf/' . $row['id']); ?>"> <?php echo $row['placa']; ?> </a></td>
+            <td><?php echo $row['modelo']; ?></td>
+            <td><?php echo $row['marca']; ?></td>
+            <td><?php echo $row['nombres_conductor']; ?></td>
+        </tr>
+        <?php
+        }
+        ?>
+    </tbody>
+
+    <tfoot class="thead-dark">
+        <tr>
+            <th>PLACA</th>
+            <th>MODELO</th>
+            <th>MARCA</th>
+            <th>CONDUCTOR</th>
+        </tr>
+    </tfoot>
+</table>

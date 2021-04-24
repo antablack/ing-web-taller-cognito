@@ -2,6 +2,8 @@
 namespace App\Controllers;
 use App\Models\ReparacionModel;
 use App\Models\ClienteModel;
+use App\Models\VehiculoModel;
+
 use Pdf;
 class Reparaciones extends BaseController
 {
@@ -13,10 +15,13 @@ class Reparaciones extends BaseController
     {
         $this->modelReparacione = new ReparacionModel();//creo objeto modelo
         $this ->modelCliente = new ClienteModel();
+        $this ->modelVehiculo = new VehiculoModel();
     }
 	public function index()
 	{
         $data['clientes'] = $this->modelCliente->getData();
+        $data['clienteId'] = isset($_GET['cliente']) ? $_GET['cliente'] : '';
+        $data['vehiculos'] = !empty($data['clienteId']) ? $this->modelVehiculo->getVehiculosxCliente() : [];
         $data['titulo'] = '<center>Listado de Vehículos</center>';
         $data['contenido'] = 'reparacion/index';
 		return view('welcome_message', $data);
