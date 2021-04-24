@@ -24,29 +24,36 @@ class Reparaciones extends BaseController
 
 
 public function listapdf(){
+
+    $db      = \Config\Database::connect();
+$builder = $db->table('reparaciones');
+$query = $builder->get();
     $pdf= new Pdf();
     $pdf->SetMargins(PDF_MARGIN_LEFT, 30, PDF_MARGIN_RIGHT);
     $pdf->Addpage();
-    $regvehiculos = $this->model->getData();
+    
+    
+    // $regvehiculos = $this->model->getData();
     $html='
     <table border="1">
         <thead>
             <tr style="background-color:#C8C6C6;color:#000000;">
-                <th>PLACA</th>
-                <th>MODELO</th>
-                <th>MARCA</th>
-                <th>CAPACIDAD</th>
+                <th>ID</th>
+                <th>OBSERVACION</th>
+                <th>VALOR</th>
+                <th>FECHA</th>
             </tr>
         </thead>
     <tbody>
     ';
-    foreach($regvehiculos as $row){
+    foreach($query->getResult() as $row){
         $html .='
         <tr>
-            <td>' .$row["placa"].'</td>
-            <td>' .$row["modelo"].'</td>
-            <td>' .$row["marca"].'</td>
-            <td>' .$row["capacidad"].'</td>
+            <td>' .$row->id.'</td>
+            <td>' .$row->observacion.'</td>
+            <td>' .$row->valor.'</td>
+            <td>' .$row->fecha.'</td>
+
         </tr>';
     }
     $html .='</tbody></table>';
