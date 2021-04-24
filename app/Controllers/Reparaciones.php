@@ -28,53 +28,150 @@ class Reparaciones extends BaseController
 
 
 public function listapdf($id){
-
-
     $pdf= new PdfReparaciones();
     $pdf->SetMargins(PDF_MARGIN_LEFT, 30, PDF_MARGIN_RIGHT);
     $pdf->Addpage();
-    $consulta2 = $this->model->getData($id);
-    $consulta = $this->model->getDetalle($consulta2["r.id"]);
-    foreach($consulta2 as $row){
-    $html='
-    <div style="text-align: center">
-<h4>Reparacion No <span style="font-style: italic">'.$row["reparaciones_id"].'</span></h4>
-';
-    $html.='
-<h4>Cliente <span style="font-style: italic">'.$row["nombre_cliente"].'</span></h4>
-<h4>Conductor <span style="font-style: italic">nombre</span></h4>
-<h4>Direccion del cliente No <span style="font-style: italic">direccion</span></h4>
-<h4>Telefono: <span style="font-style: italic">telefono</span></h4>
-<h4>Email: <span style="font-style: italic"> email</span></h4>
-</div>';
-    }
-    $html .='
-    <table border="1">
-        <thead>
-            <tr style="background-color:#C8C6C6;color:#000000;">
-                <th>ID</th>
-                <th>DESCRIPCION</th>
-                <th>PRECIO</th>
-                <th>CANTIDAD</th>
-                <th>SUBTOTAL</th>
-            </tr>
-        </thead>
-    <tbody>
-    ';
+    $reparaciones = $this->modelReparacion->getData($id);
     
-    foreach($consulta as $row2){
-        $html .='
-        <tr>
-            <td>' .$row2['id'].'</td>
-            <td> algo </td>
-            <td>' .$row2['valor'].'</td>
-            <td>' .$row2['cantidad'].'</td>
-            <td>' .$row2['valor'] * $row2['cantidad'].'</td>
+    $i = 0;
+    do {
+        $reparacion = $reparaciones[$i];
+        $i++;
+        $html='
+        <style>
+            td, th {
+                padding: 0px 10px;
+            }
+        </style>
+    
+        <table cellspacing="0">
+            <tr >
+                <td style="background-color: #ffd5bc;font-weight: bold;">
+                    Reparacion No
+                </td>
+                <td style="font-weight: bold;">
+                    '.$reparacion["id"].'
+                </td>
+                <td>
+                    Fecha
+                </td>
+                <td>
+                    '.$reparacion["fecha"].'
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #ffd5bc;font-weight: bold;">
+                    Cliente
+                </td>
+                <td colspan="3" style="font-weight: bold;">
+                    '.$reparacion["nombre_cliente"].'
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #ffd5bc;font-weight: bold;">
+                    Conductor
+                </td>
+                <td colspan="3" style="font-weight: bold;font-weight: bold;">
+                    '.$reparacion["nombre_conductor"].'
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #ffd5bc;font-weight: bold;">
+                    Dirección cliente
+                </td>
+                <td colspan="3">
+                    '.$reparacion["direccion"].'
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #ffd5bc;font-weight: bold;">
+                    Teléfono
+                </td>
+                <td colspan="3">
+                    '.$reparacion["telefono"].'
+                </td>
+            </tr>
+            <tr>
+                <td style="background-color: #ffd5bc;font-weight: bold;">
+                    Email            
+                </td>
+                <td colspan="3">
+                    '.$reparacion["correo"].'
+                </td>
+            </tr>
+        </table>';
+ 
 
-        </tr>';
-    }
-    $html .='</tbody></table>';
-    $pdf->writeHTML($html, true,false,true,false,'');
+        $html = $html . '<table border="1">
+            <thead>
+                <tr>
+                    <td colspan="5" style="text-align: center; font-style: italic; font-weight: bold;">Detalles de la reparación</td>
+                </tr>
+                <tr style="background-color:#d1bfa2;color:#000000; font-weight: bold;">
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            
+            <tbody>';
+
+            $reparacionDetalle = $this->modelReparacion->getDetalle($reparacion["id"]);
+            $total = 0;
+            foreach ($reparacionDetalle as $detalle) {
+                $total += (int)$detalle["costo"];
+
+                $html = $html . '
+                <tr>
+                    <td>'.$detalle["id"].'</td>
+                    <td>'.$detalle["descripcion"].'</td>
+                    <td>'.(string)$detalle["precio"].'</td>
+                    <td>'.(string)$detalle["cantidad"].'</td>
+                    <td>'.(string)$detalle["costo"].'</td>
+                </tr>
+                ';
+            }
+
+
+        $html = $html . '
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+        </table>';
+       
+
+
+
+        $html .= '<table>
+            <tr style="font-weight: bold;">
+                <td >TOTAL</td>
+                <td></td>
+                <td style="text-align: right;">$'.$total.'</td>
+            </tr>
+        </table>
+        ';
+        $pdf->writeHTML($html, true,false,true,false,'');
+        //echo $i;
+        //echo count($reparaciones);
+        if ($i < (count($reparaciones))) {
+            $pdf->AddPage();
+        }
+    } while($i < count($reparaciones));
+   
     $this->response->setHeader("Content-Type", "application/pdf");
     $pdf->Output('Listado_vehiculos.pdf', 'I');
     

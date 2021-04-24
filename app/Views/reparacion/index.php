@@ -47,11 +47,19 @@ $clientes = isset($clientes) ? $clientes : [];
                     }
                 ?>
             </select>
-            <input class="btn btn-primary mt-2" type="submit" value="Filtrar" />
+            <input class="btn btn-primary mt-2" type="submit" value="Consultar" />
         </form>
     </div>
 </div>
 <br />
+
+<?php 
+    if ($clienteId != '' && count($vehiculos) == 0) {
+        echo 'No hay información para mostrar';
+    }
+
+    if ($clienteId != '' && count($vehiculos) != 0) {
+?>
 <table class="table table-hover">
     <thead class="thead-dark">
         <tr>
@@ -68,16 +76,16 @@ $clientes = isset($clientes) ? $clientes : [];
         ?>
 
         <tr>
-            <td><a href="<?php echo site_url('reparaciones/listapdf/' . $row['id']); ?>">
+            <td style="text-align: center;" ><a target="_blank" href="<?php echo site_url('reparaciones/listapdf/' . $row['id']); ?>">
                     <?php echo $row['placa']; ?>
                 </a></td>
-            <td>
+            <td style="text-align: center;">
                 <?php echo $row['modelo']; ?>
             </td>
-            <td>
+            <td style="font-weight: bold;text-align: center;">
                 <?php echo $row['marca']; ?>
             </td>
-            <td>
+            <td style="text-align: center;">
                 <?php echo $row['nombres_conductor']; ?>
             </td>
         </tr>
@@ -95,3 +103,7 @@ $clientes = isset($clientes) ? $clientes : [];
         </tr>
     </tfoot>
 </table>
+<?php    
+}
+
+?>

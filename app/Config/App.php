@@ -21,7 +21,7 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/
-	public $baseURL = 'http://localhost/ing-web-taller-cognito';
+	public $baseURL = 'http://localhost/CItransporte';
 
 	/*
 	|--------------------------------------------------------------------------

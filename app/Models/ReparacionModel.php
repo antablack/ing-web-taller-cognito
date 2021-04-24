@@ -19,7 +19,7 @@ class ReparacionModel extends Model{
     public function getDetalle($reparacionId){
         return $this->db->table("detalles as d")
         ->select("d.id, s.descripcion, s.precio, d.cantidad, d.costo")
-        ->join('clientes AS cLi', 'd.servicios_id = s.id ')
+        ->join('servicios as s', 'd.servicios_id = s.id ')
         ->where('d.reparaciones_id', $reparacionId)
         ->get()->getResultArray();
     }

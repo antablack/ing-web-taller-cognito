@@ -39,15 +39,6 @@
                                     <a class="dropdown-item"
                                         href="<?php echo site_url('reparaciones/index') ?>">Reparaciones</a></li>
                                 <li>
-                                <li>
-                                    <a class="dropdown-item"
-                                        href="<?php echo site_url('reparaciones/index') ?>">Reparaciones</a></li>
-                                <li>
-                                    <a class="dropdown-item" href="<?php echo site_url('reparaciones/listapdf') ?>" target="_blank" >Reparaciones PDF</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                
                             </ul>
                         </li>
                     </ul>

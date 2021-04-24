@@ -18,14 +18,7 @@ class PdfReparaciones extends TCPDF
         $this->SetFont('helvetica', 'B', 11);
         // Title
         $this->Ln(10);//Salto de linea
-        $this->Cell(0, 5, 'SISTEMA DE GESTIÓN DE TRANSPORTE Y REPARACIONES', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-        $this->SetFont('helvetica', 'I', 10);
-        $this->Ln();//Salto de linea
-        $this->Cell(0, 5, 'Barranquilla - Atlantico', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-        $this->Ln();//Salto de linea
-        $this->Cell(0, 5, 'Tel: (+57)00232154', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-        $this->Ln();//Salto de linea
-        $this->Cell(0, 5, 'E-mail: info@transporte.com', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        $this->Cell(0, 5, 'SISTEMA DE REPARACIÓN', 0, false, 'C', 0, '', 0, false, 'M', 'M');
     }
 
     
