@@ -22,7 +22,7 @@ class Reparaciones extends BaseController
         $data['clientes'] = $this->modelCliente->getData();
         $data['clienteId'] = isset($_GET['cliente']) ? $_GET['cliente'] : '';
         $data['vehiculos'] = !empty($data['clienteId']) ? $this->modelVehiculo->getVehiculosxCliente($data['clienteId']) : [];
-        $data['titulo'] = '<center>Listado de Vehículos</center>';
+        $data['titulo'] = '<center>Reparaciones</center>';
         $data['contenido'] = 'reparacion/index';
 		return view('welcome_message', $data);
 	}
